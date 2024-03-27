@@ -1,11 +1,13 @@
-export const config = {
+exports.config = {
     //
     // ====================
     // Runner Configuration
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    //
+    host: 'localhost',
+    port: 4723,
+    path: "/wd/hub",
     // ==================
     // Specify Test Files
     // ==================
@@ -44,14 +46,21 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 5,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        // capabilities for local Appium web tests on an Android Emulator
+        "platformName": "Android",
+        "appium:automationName": "UiAutomator2",
+        "appium:platformVersion": "10",
+        "appium:deviceName": "meldCX MCX215TA",
+        "appium:app": "D:\\OnBoarding.apk",
+        "appium:appPackage": "com.meldcx.agentm.service.onboarding",
+        "appium:appActivity": "com.meldcx.agentm.service.onboarding.ui.OnboardingUI",
     }],
 
     //
@@ -85,7 +94,7 @@ export const config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://localhost',
+    baseUrl:  'https://localhost',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -101,8 +110,8 @@ export const config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],
-    //
+    services: ['appium'],
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
